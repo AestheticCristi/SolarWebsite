@@ -407,13 +407,15 @@ body::before {
     color: var(--accent);
 }
 .application-form { display: grid; gap: 18px; margin-top: 22px; }
+.content-box form { padding-top: 4px; }
 .field { display: grid; gap: 10px; }
 .field label { color: white; font-weight: 700; }
-.field input, .field textarea {
+.field input, .field textarea, .field select {
     width: 100%; padding: 14px 16px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.12);
     background: rgba(255,255,255,0.04); color: var(--text);
 }
-.field input:focus, .field textarea:focus { border-color: rgba(61,208,255,0.5); outline: none; }
+.field textarea::placeholder { color: rgba(255,255,255,0.55); }
+.field input:focus, .field textarea:focus, .field select:focus { border-color: rgba(61,208,255,0.5); outline: none; }
 .field textarea { resize: vertical; min-height: 130px; }
 .form-note { margin-top: 10px; color: var(--accent); font-weight: 600; }
 
