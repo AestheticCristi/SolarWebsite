@@ -357,6 +357,21 @@ body::before {
     text-underline-offset: 6px;
     text-decoration-color: var(--accent);
 }
+.faq-item {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(61,208,255,0.18);
+    border-radius: 18px;
+    padding: 18px 20px;
+    margin-top: 16px;
+}
+.faq-question {
+    margin-bottom: 10px;
+    color: #fff;
+}
+.faq-item p {
+    color: var(--muted);
+    margin: 0;
+}
 .highlight { display: grid; grid-template-columns: 1.2fr 1fr; gap: 26px; margin-top: 28px; align-items: center; }
 .highlight img { border-radius: 18px; }
 .premium-panel { border-color: rgba(61,208,255,0.26); }
