@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SolarCity | Solar Team</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="hero small-hero">
+        <nav class="top-nav">
+            <a href="index.html" class="brand">
+                <span class="brand-logo"><img src="assets/9f7a582c5988268aafd7ef79a88fef6f.png" alt="Solar Team logo"></span>
+                <span>SOLAR TEAM</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Acasă</a>
+                <a href="despre.html">Despre</a>
+                <a href="moduri.html">SolarCity</a>
+                <a href="reguli.html">Regulamente</a>
+                <a href="beach-please.html">Beach Please</a>
+                <a href="aplicatii-staff.html">Aplicatii Staff</a>
+                <a href="resurse-umane.html">Resurse Umane</a>
+            </div>
+            <div class="theme-panel">
+                <span>UI</span>
+                <button class="theme-button active" data-theme="default" type="button"></button>
+                <button class="theme-button" data-theme="neon" type="button"></button>
+                <button class="theme-button" data-theme="retro" type="button"></button>
+            </div>
+        </nav>
+        <div class="page-heading">
+            <p class="eyebrow">SolarCity</p>
+            <h1>Tutoriale PC și telefon</h1>
+            <p>Urmează pașii noștri pentru a instala modurile, a configura clientul și a intra pe server rapid.</p>
+        </div>
+    </header>
+
+    <main class="page">
+        <section class="tutorial-panel">
+            <div class="video-panel">
+                <div class="video-header">
+                    <h2 id="video-title">Tutorial PC</h2>
+                    <p id="video-caption">Urmărește ghidul nostru oficial pentru instalare și conectare.</p>
+                </div>
+                <div class="video-frame">
+                    <iframe id="tutorial-video" src="https://www.youtube.com/embed/ID_VIDEO_PC" title="Tutorial PC" frameborder="0" allowfullscreen></iframe>
+                    <div id="video-warning" class="video-warning">Videoclip indisponibil pe telefon. Alege varianta PC sau urmărește instrucțiunile text.</div>
+                </div>
+            </div>
+            <aside class="tutorial-options">
+                <div class="option-card active" data-video="pc" data-id="ID_VIDEO_PC">
+                    <h3>Tutorial PC</h3>
+                    <p>Instrucțiuni pas cu pas pentru instalare pe calculator și conectare la server.</p>
+                </div>
+                <div class="option-card" data-video="telefon" data-id="ID_VIDEO_TELEFON">
+                    <h3>Tutorial Telefon</h3>
+                    <p>Pași rapizi pentru Minecraft pe mobil. Videoclipul este indisponibil local pe telefon.</p>
+                </div>
+                <div class="option-card" data-video="extras" data-id="ID_VIDEO_EXTRAS">
+                    <h3>Resurse & Moduri</h3>
+                    <p>Găsește linkuri utile, setări recomandate și modul corect de funcționare.</p>
+                </div>
+            </aside>
+        </section>
+
+        <section class="content-box">
+            <h2>Resurse importante</h2>
+            <p>Folosește aceste linkuri pentru a descărca modpack-ul și a pregăti instalarea pe platforma ta.</p>
+            <div class="hero-actions">
+                <a href="#" class="btn">Descarcă Modpack PC</a>
+                <a href="#" class="btn btn-secondary">Descarcă Modpack Telefon</a>
+            </div>
+        </section>
+
+        <section class="content-box">
+            <h2>Ce primești în SolarCity</h2>
+            <div class="rule-grid">
+                <article class="rule-card">
+                    <h3>Instalare rapidă</h3>
+                    <p>Pași simpli pentru a porni modpack-ul corect pe calculator.</p>
+                </article>
+                <article class="rule-card">
+                    <h3>Setări optimizate</h3>
+                    <p>Recomandări pentru performanță, stabilitate și compatibilitate.</p>
+                </article>
+                <article class="rule-card">
+                    <h3>Conexiune sigură</h3>
+                    <p>Detalii despre IP, port și cerințe pentru accesarea serverului.</p>
+                </article>
+                <article class="rule-card">
+                    <h3>Suport telefon</h3>
+                    <p>Ghid special pentru utilizatorii de mobil și pașii de instalare prin PojavLauncher.</p>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-links">
+            <p>Ne poți găsi aici:</p>
+            <a href="#" target="_blank" rel="noopener noreferrer">Discord</a>
+            <a href="#" target="_blank" rel="noopener noreferrer">YouTube</a>
+            <a href="#" target="_blank" rel="noopener noreferrer">TikTok</a>
+            <a href="#" target="_blank" rel="noopener noreferrer">Instagram</a>
+        </div>
+        <p>© 2026 Solar Team. Toate drepturile rezervate.</p>
+    </footer>
+
+    <script src="js/theme-switcher.js"></script>
+    <script>
+        const options = document.querySelectorAll('.option-card');
+        const video = document.getElementById('tutorial-video');
+        const title = document.getElementById('video-title');
+        const caption = document.getElementById('video-caption');
+        const warning = document.getElementById('video-warning');
+
+        const isPhone = () => window.innerWidth <= 860;
+
+        function updateVideo(mode, id) {
+            if (mode === 'telefon' && isPhone()) {
+                warning.classList.add('active');
+                video.src = 'about:blank';
+                title.textContent = 'Videoclip indisponibil';
+                caption.textContent = 'Tutorialul pentru telefon nu poate fi redat direct pe acest dispozitiv.';
+            } else {
+                warning.classList.remove('active');
+                video.src = `https://www.youtube.com/embed/${id}`;
+                title.textContent = mode === 'pc' ? 'Tutorial PC' : mode === 'telefon' ? 'Tutorial Telefon' : 'Resurse & Moduri';
+                caption.textContent = mode === 'pc'
+                    ? 'Urmărește ghidul nostru oficial pentru instalare și conectare.'
+                    : mode === 'telefon'
+                        ? 'Urmează pașii pentru a instala și configura Minecraft pe mobil cu PojavLauncher.'
+                        : 'Descoperă linkurile utile și recomandările pentru server.';
+            }
+        }
+
+        options.forEach(option => {
+            option.addEventListener('click', () => {
+                options.forEach(item => item.classList.remove('active'));
+                option.classList.add('active');
+                updateVideo(option.dataset.video, option.dataset.id);
+            });
+        });
+
+        window.addEventListener('resize', () => {
+            const active = document.querySelector('.option-card.active');
+            if (active) {
+                updateVideo(active.dataset.video, active.dataset.id);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplicații Staff | Solar Team</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="hero small-hero">
+        <nav class="top-nav">
+            <a href="index.html" class="brand">
+                <span class="brand-logo"><img src="assets/9f7a582c5988268aafd7ef79a88fef6f.png" alt="Solar Team logo"></span>
+                <span>SOLAR TEAM</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Acasă</a>
+                <a href="despre.html">Despre</a>
+                <a href="moduri.html">SolarCity</a>
+                <a href="reguli.html">Regulamente</a>
+                <a href="beach-please.html">Beach Please</a>
+                <a href="resurse-umane.html">Resurse Umane</a>
+            </div>
+            <div class="theme-panel">
+                <span>UI</span>
+                <button class="theme-button active" data-theme="default" type="button"></button>
+                <button class="theme-button" data-theme="neon" type="button"></button>
+                <button class="theme-button" data-theme="retro" type="button"></button>
+            </div>
+        </nav>
+        <div class="page-heading">
+            <p class="eyebrow">Staff & recrutare</p>
+            <h1>Aplicație pentru staff</h1>
+            <p>Suntem în căutarea persoanelor responsabile, active și bine pregătite pentru a contribui la dezvoltarea comunității.</p>
+        </div>
+    </header>
+
+    <main class="page">
+        <!-- Secțiune Tutoriale Instalare Moduri -->
+        <section class="content-box">
+            <h2>Tutorial: Instalare Moduri & Conectare</h2>
+            <p>Deoarece festivalul se desfășoară pe un server dedicat, este necesară instalarea modpack-ului oficial pentru o experiență stabilă.</p>
+            
+            <div class="tutorial-panel">
+                <div class="video-panel">
+                    <h3 id="video-title">Tutorial PC</h3>
+                    <iframe id="tutorial-video" src="https://www.youtube.com/embed/ID_VIDEO_PC" frameborder="0" allowfullscreen></iframe>
+                </div>
+                
+                <aside class="tutorial-options">
+                    <div class="option-card active" data-video="pc" data-id="ID_VIDEO_PC">
+                        <h3>Tutorial PC</h3>
+                        <p>1. Descarcă modpack-ul.<br>2. Instalează Forge/Fabric.<br>3. Copiază fișierele în folderul 'mods'.</p>
+                    </div>
+                    <div class="option-card" data-video="telefon" data-id="ID_VIDEO_TELEFON">
+                        <h3>Tutorial Telefon</h3>
+                        <p>1. Instalează PojavLauncher.<br>2. Descarcă versiunea de modpack pentru mobil.<br>3. Importă profilul în launcher.</p>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <!-- Structura Staff -->
+        <section class="content-box premium-panel">
+            <h2>Structura Staff: Protecție & Siguranță</h2>
+            <ul class="reguli-list">
+                <li><strong>Protecție Server:</strong> Monitorizarea vulnerabilităților și accesului neautorizat[cite: 1].</li>
+                <li><strong>Agenți de Pază:</strong> Gestionarea ordinii în zonele de eveniment, precum Solar Beach Please[cite: 1].</li>
+                <li><strong>Suport & Moderare:</strong> Rezolvarea disputelor de roleplay și aplicarea regulamentului[cite: 1].</li>
+            </ul>
+        </section>
+
+        <!-- Condiții -->
+        <section class="content-box">
+            <h2>Cod de Conduită & Integritate</h2>
+            <ul class="reguli-list">
+                <li><strong>Maturitate:</strong> Comportament adecvat, fără limbaj toxic[cite: 1].</li>
+                <li><strong>Zero Toleranță:</strong> Abuzul de funcție duce la eliminarea definitivă[cite: 1].</li>
+                <li><strong>Confidențialitate:</strong> Protejarea informațiilor interne și a datelor jucătorilor[cite: 1].</li>
+            </ul>
+        </section>
+
+        <!-- Formular -->
+        <section class="content-box">
+            <h2>Formular de Recrutare</h2>
+            <form id="staff-application-form" class="application-form">
+                <div class="field"><label>Nume / Nickname</label><input type="text" id="app-name" required></div>
+                <div class="field"><label>Vârsta (minim 16 ani)</label><input type="number" id="app-age" required></div>
+                <div class="field">
+                    <label>Departament</label>
+                    <select id="app-dept" required>
+                        <option value="paza">Agenți de Pază</option>
+                        <option value="protectie">Protecție Tehnică</option>
+                        <option value="moderator">Moderator General</option>
+                    </select>
+                </div>
+                <div class="field"><label>Experiență anterioară</label><textarea id="app-exp" rows="4" required></textarea></div>
+                <div class="field"><label>De ce vrei să faci parte din Solar Team?</label><textarea id="app-why" rows="4" required></textarea></div>
+                <button type="submit" class="btn">Trimite aplicația</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-links">
+            <p>Ne poți găsi aici:</p>
+            <a href="#" target="_blank" rel="noopener noreferrer">Discord</a>
+            <a href="#" target="_blank" rel="noopener noreferrer">YouTube</a>
+            <a href="#" target="_blank" rel="noopener noreferrer">TikTok</a>
+            <a href="#" target="_blank" rel="noopener noreferrer">Instagram</a>
+        </div>
+        <p>© 2026 Solar Team. Toate drepturile rezervate.</p>
+    </footer>
+
+    <script src="js/theme-switcher.js"></script>
+    <script>
+        // Logica pentru tutoriale
+        const options = document.querySelectorAll('.option-card');
+        const video = document.getElementById('tutorial-video');
+        options.forEach(opt => opt.addEventListener('click', () => {
+            options.forEach(i => i.classList.remove('active'));
+            opt.classList.add('active');
+            video.src = `https://www.youtube.com/embed/${opt.getAttribute('data-id')}`;
+        }));
+
+        document.getElementById('staff-application-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Aplicația a fost trimisă pentru examinare. Te vom contacta pe Discord.');
+        });
+    </script>
+</body>
+</html>
