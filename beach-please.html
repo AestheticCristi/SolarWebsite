@@ -58,6 +58,7 @@
                 </aside>
             </div>
         </section>
+
         <!-- FAQ -->
         <section class="content-box">
             <h2 class="section-title">❓ Întrebări Frecvente</h2>
@@ -70,12 +71,13 @@
                 <p class="faq-answer">Da, avem echipe medicale pregătite pe toată durata evenimentului.</p>
             </div>
         </section>
+
         <!-- Structură & Conduită -->
         <section class="content-box premium-panel">
             <h2>Structură Staff & Cod de Conduită</h2>
             <ul class="reguli-list">
                 <li><strong>Protecție Server:</strong> Monitorizarea vulnerabilităților și accesului neautorizat.</li>
-                <li><strong>Agenți de Pază:</strong> Gestionarea ordinii în zonele de eveniment.</li>
+                <li><strong>Agenți de Pazas:</strong> Gestionarea ordinii în zonele de eveniment.</li>
                 <li><strong>Suport & Moderare:</strong> Rezolvarea disputelor și aplicarea regulamentului.</li>
                 <li><strong>Maturitate:</strong> Comportament adecvat, fără limbaj toxic.</li>
                 <li><strong>Confidențialitate:</strong> Protejarea datelor jucătorilor.</li>
@@ -101,8 +103,6 @@
             </ul>
         </section>
 
-        
-
         <!-- Formular -->
         <section class="content-box">
             <h2>Formular de Recrutare</h2>
@@ -112,9 +112,9 @@
                 <div class="field">
                     <label>Departament</label>
                     <select id="app-dept" required>
-                        <option value="paza">Agenți de Pază</option>
-                        <option value="protectie">Protecție Tehnică</option>
-                        <option value="moderator">Moderator General</option>
+                        <option value="Agenți de Pază">Agenți de Pază</option>
+                        <option value="Protecție Tehnică">Protecție Tehnică</option>
+                        <option value="Moderator General">Moderator General</option>
                     </select>
                 </div>
                 <div class="field"><label>Experiență</label><textarea id="app-exp" rows="3" required></textarea></div>
@@ -156,10 +156,66 @@
             });
         });
 
-        // Submit Form
-        document.getElementById('staff-application-form').addEventListener('submit', (e) => {
+        // Submit Form + Discord Embed Webhook
+        document.getElementById('staff-application-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('Aplicația a fost trimisă. Te vom contacta pe Discord!');
+
+            // INLOCUIEȘTE TEXTUL DE MAI JOS CU LINK-UL WEBHOOK-ULUI TĂU DE DISCORD
+            const webhookURL = "https://discord.com/api/webhooks/1524279143511097507/LzXLpk4UdScZa5_CpnX2W0Aen38edveCO0eUNKtxtQNuQCj3fd8eyjYVMgH1f_zbMXaj";
+
+            // Preluăm datele introduse de utilizator
+            const name = document.getElementById('app-name').value;
+            const age = document.getElementById('app-age').value;
+            const dept = document.getElementById('app-dept').value;
+            const exp = document.getElementById('app-exp').value;
+
+            // Construim structura JSON pentru Discord Embed
+            const payload = {
+                username: "Solar Team Recrutări",
+                avatar_url: "https://solar-team.ro/assets/9f7a582c5988268aafd7ef79a88fef6f.png", // Poți pune un link valid către logo dacă ăsta nu e public online
+                embeds: [{
+                    title: "📝 Aplicație Nouă Staff — Solar Team",
+                    color: 16753920, // O culoare portocalie/solară frumoasă (cod hex convertit în zecimal)
+                    description: "O nouă persoană dorește să se alăture echipei SolarCity!",
+                    fields: [
+                        { name: "👤 Nume / Nickname", value: name, inline: true },
+                        { name: "⏳ Vârstă", value: age + " ani", inline: true },
+                        { name: "💼 Departament", value: dept, inline: true },
+                        { name: "📖 Experiență menționată", value: exp, inline: false }
+                    ],
+                    timestamp: new Date().toISOString(),
+                    footer: { text: "Sistem de Recrutare SolarCity" }
+                }]
+            };
+
+            // Dezactivăm butonul temporar pentru a preveni trimiterile multiple
+            const submitBtn = this.querySelector('.btn');
+            submitBtn.disabled = true;
+            submitBtn.innerText = "Se trimite...";
+
+            // Trimitem datele prin API-ul Fetch
+            fetch(webhookURL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('Aplicația ta a fost înregistrată cu succes în baza noastră de date! Te vom contacta pe Discord.');
+                    document.getElementById('staff-application-form').reset();
+                } else {
+                    alert('A apărut o problemă la trimitere. Asigură-te că link-ul webhook-ului este corect configurat.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Eroare de conexiune. Te rugăm să încerci din nou mai târziu.');
+            })
+            .finally(() => {
+                // Reactivăm butonul
+                submitBtn.disabled = false;
+                submitBtn.innerText = "Trimite aplicația";
+            });
         });
     </script>
 </body>
