@@ -51,23 +51,23 @@
             <form class="application-form" id="staff-form">
                 <div class="field">
                     <label for="nume">Nume / Nick</label>
-                    <input type="text" id="nume" name="nume" required>
+                    <input type="text" id="nume" name="nume" autocomplete="name" required>
                 </div>
                 <div class="field">
                     <label for="discord">Discord</label>
-                    <input type="text" id="discord" name="discord" required>
+                    <input type="text" id="discord" name="discord" autocomplete="username" required>
                 </div>
                 <div class="field">
                     <label for="varsta">Vârstă / experiență</label>
-                    <input type="text" id="varsta" name="varsta" required>
+                    <input type="text" id="varsta" name="varsta" autocomplete="bday" required>
                 </div>
                 <div class="field">
                     <label for="pozitie">Poziție dorită</label>
-                    <input type="text" id="pozitie" name="pozitie" placeholder="Ex: moderator / helper / admin" required>
+                    <input type="text" id="pozitie" name="pozitie" placeholder="Ex: moderator / helper / admin" autocomplete="organization-title" required>
                 </div>
                 <div class="field">
                     <label for="disponibilitate">Disponibilitate</label>
-                    <input type="text" id="disponibilitate" name="disponibilitate" required>
+                    <input type="text" id="disponibilitate" name="disponibilitate" autocomplete="off" required>
                 </div>
                 <div class="field">
                     <label for="motivatie">Motivație</label>
@@ -130,15 +130,32 @@
     </div>
 </footer>
     <script src="js/theme-switcher.js"></script>
+    <script src="js/site-enhancements.js"></script>
 
     <script>
-        const webhookUrl = 'https://discordapp.com/api/webhooks/1524101361518514283/nQ8rYWE36ANKvswm_z9GjS9u7k2ZA4kZ3XLBs8DPsJ7gMcBJqcWZsKiQEzEwe8OGeGZ4';
+        const webhookUrl = 'YOUR_DISCORD_WEBHOOK_URL';
+        const status = document.getElementById('form-status');
+        const submitButton = document.querySelector('#staff-form button[type="submit"]');
 
         document.getElementById('staff-form').addEventListener('submit', async function (event) {
             event.preventDefault();
 
             const formData = new FormData(this);
             const data = Object.fromEntries(formData.entries());
+
+            if (!webhookUrl || webhookUrl === 'YOUR_DISCORD_WEBHOOK_URL') {
+                status.textContent = 'Configurează webhook-ul Discord înainte de a trimite aplicația.';
+                status.classList.remove('success');
+                status.classList.add('error');
+                return;
+            }
+
+            if (!data.nume.trim() || !data.discord.trim() || !data.varsta.trim() || !data.pozitie.trim() || !data.disponibilitate.trim() || !data.motivatie.trim()) {
+                status.textContent = 'Te rog completează toate câmpurile obligatorii corect.';
+                status.classList.remove('success');
+                status.classList.add('error');
+                return;
+            }
 
             const payload = {
                 username: 'Solar Team Staff Bot',
@@ -159,14 +176,11 @@
                 }]
             };
 
-            const status = document.getElementById('form-status');
+            submitButton.disabled = true;
+            submitButton.textContent = 'Se trimite...';
+            status.textContent = '';
 
             try {
-                if (webhookUrl === 'YOUR_DISCORD_WEBHOOK_URL') {
-                    status.textContent = 'Configurează webhook-ul Discord în fișierul HTML pentru a trimite aplicația.';
-                    return;
-                }
-
                 const response = await fetch(webhookUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -178,9 +192,16 @@
                 }
 
                 status.textContent = 'Aplicația a fost trimisă cu succes în Discord.';
+                status.classList.remove('error');
+                status.classList.add('success');
                 this.reset();
             } catch (error) {
-                status.textContent = 'Nu s-a putut trimite aplicația. Verifică webhook-ul Discord.';
+                status.textContent = 'Nu s-a putut trimite aplicația. Verifică webhook-ul Discord și conexiunea.';
+                status.classList.remove('success');
+                status.classList.add('error');
+            } finally {
+                submitButton.disabled = false;
+                submitButton.textContent = 'Trimite aplicația';
             }
         });
     </script>
