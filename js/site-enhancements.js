@@ -14,8 +14,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     externalLinks.forEach(link => {
-        if (!link.rel.includes('noopener')) {
-            link.rel = `${link.rel} noopener noreferrer`.trim();
+        const url = link.href;
+        const isExternal = url.startsWith('http') && !url.includes(window.location.hostname);
+
+        if (isExternal) {
+            if (!link.rel.includes('noopener')) {
+                link.rel = `${link.rel} noopener noreferrer`.trim();
+            }
+            link.referrerPolicy = 'no-referrer';
         }
     });
 
