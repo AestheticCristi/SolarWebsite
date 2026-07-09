@@ -5,8 +5,185 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SolarCity | Solar Team</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* --- STILURI MODAL DINAMIC (Se adaptează la temă) --- */
+        .terms-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: var(--bg);
+            background-image: linear-gradient(180deg, var(--bg) 0%, rgba(0,0,0,0.94) 100%);
+            backdrop-filter: blur(15px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .terms-modal-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .terms-modal-content {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            max-width: 650px;
+            width: 100%;
+            max-height: 85vh;
+            padding: 35px;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .terms-modal-header h2 {
+            color: var(--accent);
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            letter-spacing: -0.02em;
+        }
+
+        .terms-modal-body {
+            overflow-y: auto;
+            padding-right: 15px;
+            margin-bottom: 25px;
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .terms-modal-body h3 {
+            color: var(--text);
+            font-size: 1.2rem;
+            margin: 20px 0 10px;
+        }
+
+        .terms-modal-body ul {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .terms-modal-body li {
+            margin-bottom: 8px;
+        }
+
+        .terms-modal-footer {
+            display: flex;
+            justify-content: center;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        .btn-accept {
+            min-width: 240px;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            color: var(--btn-text);
+            padding: 16px 24px;
+            border-radius: 999px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            box-shadow: var(--shadow);
+            transition: transform 0.22s ease, box-shadow 0.22s ease;
+        }
+
+        .btn-accept:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 22px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        body.modal-open {
+            overflow: hidden;
+        }
+
+        /* --- STILURI CASETA ATENȚIE --- */
+        .atentie-box {
+            background: rgba(255, 154, 141, 0.08);
+            border: 1px solid var(--error);
+            border-left: 5px solid var(--error);
+            border-radius: 18px;
+            padding: 24px;
+            margin-top: 28px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .atentie-box h3 {
+            color: var(--error);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-size: 1.2rem;
+            font-weight: 800;
+        }
+
+        .atentie-box p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.65;
+        }
+
+        .atentie-box strong {
+            color: var(--text);
+            font-weight: 700;
+        }
+
+        /* Scrollbar modal care respectă tema */
+        .terms-modal-body::-webkit-scrollbar { width: 6px; }
+        .terms-modal-body::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); }
+        .terms-modal-body::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+    </style>
 </head>
-<body>
+<body class="modal-open">
+    <!-- MODAL TERMENI ȘI CONDIȚII DINAMIC -->
+    <div id="termsModal" class="terms-modal-overlay">
+        <div class="terms-modal-content">
+            <div class="terms-modal-header">
+                <h2>Termeni și Condiții</h2>
+                <p style="color: var(--accent); font-weight: 700; font-size: 1.1rem;">Acceptă regulile pentru a accesa SolarCity.</p>
+            </div>
+            <div class="terms-modal-body">
+                <h3>1. ACCEPTAREA TERMENILOR</h3>
+                <p>Prin accesarea și utilizarea serverului SolarCity și a site-ului aferent, sunteți de acord să respectați acești Termeni și Condiții.</p>
+
+                <h3>2. CODUL DE CONDUITĂ</h3>
+                <p>Utilizatorii trebuie să mențină un comportament civilizat. Sunt strict interzise:</p>
+                <ul>
+                    <li>Limbajul licențios, hărțuirea sau discriminarea.</li>
+                    <li>Utilizarea programelor de tip "cheat", hack-uri sau orice software care oferă un avantaj nedrept.</li>
+                    <li>Exploatarea bug-urilor jocului (trebuie raportate imediat echipei staff).</li>
+                </ul>
+
+                <h3>3. DONAȚII ȘI ACHIZIȚII</h3>
+                <p>Orice donație efectuată către SolarCity este voluntară și utilizată pentru întreținerea serverului. Donațiile nu sunt rambursabile.</p>
+
+                <h3>4. RESPONSABILITATE</h3>
+                <p>Solar Team nu este responsabilă pentru pierderea itemelor virtuale cauzată de erori tehnice sau acțiuni ale terților.</p>
+                
+                <p style="margin-top: 20px;"><strong>Notă:</strong> Continuarea accesului pe site reprezintă acceptarea integrală a acestor condiții.</p>
+            </div>
+            <div class="terms-modal-footer">
+                <button id="acceptBtn" class="btn-accept">Accept și Continuă</button>
+            </div>
+        </div>
+    </div>
+
     <header class="hero small-hero">
         <nav class="top-nav">
             <a href="index.html" class="brand">
@@ -67,10 +244,20 @@
         <section class="content-box">
             <h2>Resurse importante</h2>
             <p>Folosește aceste linkuri pentru a descărca modpack-ul și a pregăti instalarea pe platforma ta.</p>
+            
             <div class="hero-actions">
-                <a href="#" class="btn">Descarcă Modpack PC</a>
-                <a href="#" class="btn btn-secondary">Descarcă Modpack Telefon</a>
-                <a href="#" class="btn btn-secondary">Descarcă MODURI </a>
+                <a href="#" class="btn">MODPACK PC</a>
+                <a href="#" class="btn btn-secondary">MODURI TELEFON</a>
+                <a href="#" class="btn btn-secondary">MODURI PC (DOAR MODURI )</a>
+            </div>
+
+            <div class="atentie-box">
+                <h3>⚠️ ATENȚIE</h3>
+                <p>
+                    La <strong>MODURILE PC</strong> includem doar modurile de bază necesare pentru conectare.   
+
+                    Pentru <strong>MODPACK PC</strong>, pachetul este complet și include: versiunea de joc, waypoint-uri, shadere optimizate și toate setările gata de joc.
+                </p>
             </div>
         </section>
 
@@ -98,23 +285,36 @@
     </main>
 
     <footer>
-    <div class="footer-container">
-        <p class="footer-title">Ne poți găsi aici:</p>
-        <div class="footer-links">
-            <a href="https://discord.gg/DY3Z3vGfQ" target="_blank" rel="noopener noreferrer">Discord</a>
-            <a href="https://www.youtube.com/@So.Lar_Team" target="_blank" rel="noopener noreferrer">YouTube</a>
-            <a href="https://www.tiktok.com/@solar_team_official" target="_blank" rel="noopener noreferrer">TikTok Principal</a>
-            <a href="https://www.tiktok.com/@solarteamnetwork" target="_blank" rel="noopener noreferrer">TikTok Secundar</a>
-            <a href="https://www.instagram.com/solarcityrp/" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <div class="footer-container">
+            <p class="footer-title">Ne poți găsi aici:</p>
+            <div class="footer-links">
+                <a href="https://discord.gg/DY3Z3vGfQ" target="_blank" rel="noopener noreferrer">Discord</a>
+                <a href="https://www.youtube.com/@So.Lar_Team" target="_blank" rel="noopener noreferrer">YouTube</a>
+                <a href="https://www.tiktok.com/@solar_team_official" target="_blank" rel="noopener noreferrer">TikTok Principal</a>
+                <a href="https://www.tiktok.com/@solarteamnetwork" target="_blank" rel="noopener noreferrer">TikTok Secundar</a>
+                <a href="https://www.instagram.com/solarcityrp/" target="_blank" rel="noopener noreferrer">Instagram</a>
+            </div>
+            <p class="footer-copyright">© 2026 Solar Team. Toate drepturile rezervate.</p>
         </div>
-        <p class="footer-copyright">© 2026 Solar Team. Toate drepturile rezervate.</p>
-    </div>
-</footer>
+    </footer>
 
     <button class="scroll-top" type="button" aria-label="Înapoi sus">↑</button>
+    
     <script src="js/style-switcher.js"></script>
     <script src="js/site-enhancements.js"></script>
     <script>
+        // LOGICA MODAL DINAMIC (Apare la fiecare încărcare )
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('termsModal');
+            const acceptBtn = document.getElementById('acceptBtn');
+            
+            acceptBtn.addEventListener('click', function() {
+                modal.classList.add('hidden');
+                document.body.classList.remove('modal-open');
+            });
+        });
+
+        // LOGICA ORIGINALĂ A SITE-ULUI (Video Switcher)
         const options = document.querySelectorAll('.option-card');
         const video = document.getElementById('tutorial-video');
         const title = document.getElementById('video-title');
@@ -142,7 +342,7 @@
         }
 
         options.forEach(option => {
-            option.addEventListener('click', () => {
+            option.addEventListener('click', ( ) => {
                 options.forEach(item => item.classList.remove('active'));
                 option.classList.add('active');
                 updateVideo(option.dataset.video, option.dataset.id);
