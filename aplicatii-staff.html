@@ -159,21 +159,36 @@
 
             const payload = {
                 username: 'Solar Team Staff Bot',
-                embeds: [{
-                    title: 'Nouă aplicație pentru staff',
-                    color: 0x00bcd4,
-                    description: 'A fost trimisă o nouă aplicație pentru staff.',
-                    fields: [
-                        { name: 'Nume / Nick', value: data.nume || 'N/A', inline: true },
-                        { name: 'Discord', value: data.discord || 'N/A', inline: true },
-                        { name: 'Vârstă / experiență', value: data.varsta || 'N/A', inline: true },
-                        { name: 'Poziție dorită', value: data.pozitie || 'N/A', inline: true },
-                        { name: 'Disponibilitate', value: data.disponibilitate || 'N/A', inline: true },
-                        { name: 'Motivație', value: data.motivatie || 'N/A' },
-                        { name: 'Experiență anterioară', value: data.experienta || 'N/A' }
-                    ],
-                    timestamp: new Date().toISOString()
-                }]
+                embeds: [
+                    {
+                        title: 'Aplicație nouă pentru staff',
+                        color: 0x1f8b4c,
+                        author: {
+                            name: 'Solar Team Recrutare',
+                            icon_url: 'https://i.imgur.com/0ZV3J4D.png'
+                        },
+                        fields: [
+                            { name: 'Nume / Nick', value: data.nume || 'N/A', inline: true },
+                            { name: 'Discord', value: data.discord || 'N/A', inline: true },
+                            { name: 'Poziție dorită', value: data.pozitie || 'N/A', inline: true }
+                        ],
+                        footer: {
+                            text: 'Respingeți aplicațiile incomplete',
+                            icon_url: 'https://i.imgur.com/0ZV3J4D.png'
+                        },
+                        timestamp: new Date().toISOString()
+                    },
+                    {
+                        title: 'Detalii aplicație',
+                        color: 0x2f3136,
+                        fields: [
+                            { name: 'Vârstă / experiență', value: data.varsta || 'N/A', inline: true },
+                            { name: 'Disponibilitate', value: data.disponibilitate || 'N/A', inline: true },
+                            { name: 'Motivație', value: data.motivatie || 'N/A' },
+                            { name: 'Experiență anterioară', value: data.experienta || 'N/A' }
+                        ]
+                    }
+                ]
             };
 
             submitButton.disabled = true;
