@@ -805,4 +805,184 @@ footer {
     .top-nav { flex-direction: column; gap: 14px; }
     .hero-content, .page-heading { padding-top: 70px; }
 }
+/*/* ==========================================================================
+   TEMPLATE NOU: HYBRID DOUBLE-LEVEL CARD (POZE MICI + SPAȚIU EXTINS)
+   ========================================================================== */
 
+.hybrid-partners-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+/* Cardul dreptunghiular principal */
+.hybrid-partner-card {
+    background: rgba(255, 255, 255, 0.01);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.hybrid-partner-card:hover {
+    background: rgba(255, 255, 255, 0.02);
+    border-color: var(--accent, #3dd0ff);
+}
+
+/* Nivelul 1: Header-ul cu imagine mică și text descriptiv larg */
+.hybrid-card-top {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    border-bottom: 1px dashed var(--border);
+    padding-bottom: 14px;
+}
+
+/* Poze micuțe stil avatar compact */
+.hybrid-avatar-mini {
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
+    object-fit: cover;
+    border: 1px solid var(--border);
+    background: rgba(0, 0, 0, 0.2);
+    flex-shrink: 0;
+}
+
+.hybrid-main-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.hybrid-title-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+}
+
+.hybrid-title-row h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 0;
+    color: #fff;
+}
+
+.hybrid-badge {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--accent, #3dd0ff);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    background: rgba(61, 208, 255, 0.08);
+    padding: 2px 8px;
+    border-radius: 6px;
+}
+
+/* Descrierea se întinde generos acum */
+.hybrid-description {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Nivelul 2: Zonele inferioare de detalii */
+.hybrid-card-bottom {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+/* Grila cu cele două liste */
+.hybrid-details-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    flex: 1;
+}
+
+.hybrid-list-box {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.hybrid-list-title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--accent-2, #ffc660);
+}
+
+.hybrid-ul {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.hybrid-ul li {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 4px !important;
+    line-height: 1.4;
+}
+
+/* Caseta butonului fixat la baza din dreapta */
+.hybrid-action-box {
+    flex-shrink: 0;
+}
+
+.btn-hybrid-pill {
+    display: inline-block;
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    color: #fff;
+    border: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.03);
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.btn-hybrid-pill:hover {
+    background: #fff;
+    color: #000;
+    border-color: #fff;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+}
+
+/* Suport optimizat pentru Mobile */
+@media (max-width: 768px) {
+    .hybrid-card-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+    .hybrid-details-grid {
+        grid-template-columns: 1fr;
+        width: 100%;
+    }
+    .hybrid-action-box {
+        width: 100%;
+    }
+    .btn-hybrid-pill {
+        display: block;
+        text-align: center;
+        width: 100%;
+    }
+}
