@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resurse Oficiale | Solar Team</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Stiluri specifice pentru grila de resurse/pluginuri */
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .resource-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .resource-badge {
+            display: inline-block;
+            align-self: flex-start;
+            background: rgba(var(--accent-rgb), 0.1);
+            color: var(--accent);
+            padding: 6px 12px;
+            border-radius: 99px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 15px;
+        }
+
+        .resource-card h3 {
+            font-size: 1.4rem;
+            color: var(--text);
+            margin-bottom: 10px;
+        }
+
+        .resource-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .resource-meta {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border);
+            padding-top: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .resource-meta strong {
+            color: var(--text);
+        }
+
+        .developer-tag {
+            color: var(--accent-2) !important;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="hero small-hero">
+        <nav class="top-nav">
+            <a href="index.html" class="brand">
+                <span class="brand-logo"><img src="assets/9f7a582c5988268aafd7ef79a88fef6f.png" alt="Solar Team logo"></span>
+                <span>SOLAR TEAM</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Acasă</a>
+                <a href="despre.html">Despre</a>
+                <a href="moduri.html">SolarCity</a>
+                <a href="reguli.html">Regulamente</a>
+                <a href="beach-please.html">Beach Please</a>
+                <a href="aplicatii-staff.html">Aplicatii Staff</a>
+                <a href="echipa.html">Echipa</a>
+                <a href="fisiere.html" class="active">Fișiere</a>
+            </div>
+            <div class="theme-panel">
+                <span>UI</span>
+                <button class="theme-button active" data-theme="default" type="button"></button>
+                <button class="theme-button" data-theme="neon" type="button"></button>
+                <button class="theme-button" data-theme="retro" type="button"></button>
+            </div>
+        </nav>
+        <div class="page-heading">
+            <p class="eyebrow">Resurse și Dezvoltare</p>
+            <h1>Fișiere Oficiale</h1>
+            <p>Pluginuri, skripturi și unelte unice create special pentru comunitate de către echipa noastră de developeri.</p>
+        </div>
+    </header>
+
+    <main class="page">
+        <section class="content-box">
+            <h2>Pluginuri & Skripturi active</h2>
+            <p>Toate fișierele de mai jos sunt verificate, optimizate și garantate împotriva exploit-urilor.</p>
+
+            <div class="resources-grid">
+                
+                <!-- EXEMPLU DE SKRIPT -->
+                <article class="resource-card">
+                    <div>
+                        <span class="resource-badge">Skript</span>
+                        <h3>SolarCore System</h3>
+                        <p>Sistemul principal de optimizare a chatului, economiei și core-ului pentru serverele de Roleplay. Include protecție anti-spam integrată.</p>
+                    </div>
+                    <div>
+                        <div class="resource-meta">
+                            <span>Autor: <strong class="developer-tag">SoLarTeam</strong></span>
+                            <span>Versiune: <strong>v1.0.4</strong></span>
+                        </div>
+                        <a href="#" class="btn" style="width: 100%; text-align: center;">Descarcă .sk</a>
+                    </div>
+                </article>
+
+                <!-- EXEMPLU DE PLUGIN -->
+                <article class="resource-card">
+                    <div>
+                        <span class="resource-badge" style="background: rgba(235, 94, 40, 0.1); color: #eb5e28;">Plugin</span>
+                        <h3>CrystalAntiCheat</h3>
+                        <p>Sistem avansat de securitate creat pentru a bloca pachetele modificate, mișcările suspecte și injectările de tip clienți hacked.</p>
+                    </div>
+                    <div>
+                        <div class="resource-meta">
+                            <span>Dev: <strong class="developer-tag">Crystal Developer</strong></span>
+                            <span>Versiune: <strong>v2.1.0-Beta</strong></span>
+                        </div>
+                        <a href="#" class="btn" style="width: 100%; text-align: center;">Descarcă .jar</a>
+                    </div>
+                </article>
+
+                <!-- ALT EXEMPLU COMPLET -->
+                <article class="resource-card">
+                    <div>
+                        <span class="resource-badge">Addon / Config</span>
+                        <h3>SolarCity Custom HUD</h3>
+                        <p>Configurații premium pentru interfața grafică a jucătorilor (scoreboard, tab și iconițe customizate în chat adaptate temei).</p>
+                    </div>
+                    <div>
+                        <div class="resource-meta">
+                            <span>Colaborare: <strong>SoLar x Crystal</strong></span>
+                            <span>Versiune: <strong>v1.0.0</strong></span>
+                        </div>
+                        <a href="#" class="btn btn-secondary" style="width: 100%; text-align: center;">Descarcă .zip</a>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <p class="footer-title">Ne poți găsi aici:</p>
+            <div class="footer-links">
+                <a href="https://discord.gg/DY3Z3vGfQ" target="_blank" rel="noopener noreferrer">Discord</a>
+                <a href="https://www.youtube.com/@So.Lar_Team" target="_blank" rel="noopener noreferrer">YouTube</a>
+                <a href="https://www.tiktok.com/@solar_team_official" target="_blank" rel="noopener noreferrer">TikTok Principal</a>
+                <a href="https://www.tiktok.com/@solarteamnetwork" target="_blank" rel="noopener noreferrer">TikTok Secundar</a>
+                <a href="https://www.instagram.com/solarcityrp/" target="_blank" rel="noopener noreferrer">Instagram</a>
+            </div>
+            <p class="footer-copyright">© 2026 Solar Team. Toate drepturile rezervate.</p>
+        </div>
+    </footer>
+
+    <button class="scroll-top" type="button" aria-label="Înapoi sus">↑</button>
+    
+    <script src="js/style-switcher.js"></script>
+    <script src="js/site-enhancements.js"></script>
+</body>
+</html>
