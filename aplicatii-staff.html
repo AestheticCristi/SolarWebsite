@@ -255,6 +255,9 @@
     <script>
         const webhookUrl = 'https://discord.com/api/webhooks/1524101361518514283/nQ8rYWE36ANKvswm_z9GjS9u7k2ZA4kZ3XLBs8DPsJ7gMcBJqcWZsKiQEzEwe8OGeGZ4';
         
+        // Inicializare canal de comunicare radio local (0ms delay)
+        const solarChannel = new BroadcastChannel('solar_live_network');
+
         // ================= CONFIGURARE PAROLĂ SECRETA =================
         const SECRETPASS = 'SolarTeamDev2026';
         // ==============================================================
@@ -420,10 +423,31 @@
 
             btnSubmit.disabled = true;
             btnSubmit.textContent = 'Se trimite...';
-            status.textContent = 'Se trimite aplicația către Discord...';
+            status.textContent = 'Se trimite aplicația instant local și către Discord...';
             status.style.color = '#f1c40f';
 
+            // ================= INJECTARE LOCALĂ ÎN TIMP REAL (0ms Latență) =================
+            const ticketId = Date.now();
+            const nouTicketLocal = {
+                id: ticketId,
+                nume: data.nume,
+                discord: data.discord,
+                prioritate: 'high', // Aplicațiile primite prin panoul de staff sunt prioritare
+                tip: 'Staff',
+                mesaj: `Poziție solicitată: ${data.pozitie}\nVârstă: ${data.varsta} ani\nDisponibilitate: ${data.disponibilitate}\n\nMotivație:\n${data.motivatie}`
+            };
+
+            // Salvăm direct în registrul local
+            let localDb = JSON.parse(localStorage.getItem('solar_tickets_db')) || [];
+            localDb.unshift(nouTicketLocal);
+            localStorage.setItem('solar_tickets_db', JSON.stringify(localDb));
+
+            // Transmitem semnalul radio către dashboard
+            solarChannel.postMessage({ type: 'NEW_APPLICATION', data: nouTicketLocal });
+            // ==============================================================================
+
             try {
+                // Păstrăm și integrarea secundară opțională cu Discord Webhook
                 const response = await fetch(webhookUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -432,7 +456,7 @@
 
                 if (!response.ok) throw new Error(`Discord Error: ${response.status}`);
 
-                status.textContent = 'Aplicația a fost trimisă cu succes pe Discord!';
+                status.textContent = 'Aplicația a fost înregistrată pe Dashboard-ul Local și trimisă pe Discord!';
                 status.style.color = '#2ecc71';
                 
                 form.reset();
@@ -441,8 +465,13 @@
 
             } catch (error) {
                 console.error(error);
-                status.textContent = 'Eroare la trimitere! Verifică dacă link-ul Webhook-ului este corect în cod.';
-                status.style.color = '#e74c3c';
+                // Chiar dacă pică internetul/Discord, anunțăm succesul local pentru că în dashboard s-a salvat!
+                status.textContent = 'Aplicația salvată local în Dashboard! (Notă: Notificarea Discord Webhook a eșuat).';
+                status.style.color = '#3498db';
+                
+                form.reset();
+                currentStep = 1;
+                showStep(currentStep);
             } finally {
                 btnSubmit.disabled = false;
                 btnSubmit.textContent = 'Trimite aplicația';
