@@ -101,6 +101,16 @@
         .btn-secondary-sm { background: var(--hq-surface-light); border: 1px solid var(--hq-border); color: #fff; padding: 8px 14px; font-size: 0.8rem; font-weight: 500; border-radius: 8px; cursor: pointer; transition: 0.2s; }
         .btn-secondary-sm:hover { border-color: var(--accent-staff); background: rgba(61, 208, 255, 0.05); }
 
+        /* === CHAT ENGINE UI === */
+        .chat-container { display: flex; flex-direction: column; height: 520px; background: rgba(5, 6, 10, 0.5); border-radius: 12px; border: 1px solid var(--hq-border); overflow: hidden; }
+        .chat-messages { flex: 1; padding: 24px; overflow-y: auto; display: flex; flex-direction: column; gap: 16px; }
+        .chat-input-row { display: flex; gap: 12px; padding: 18px; background: var(--hq-surface); border-top: 1px solid var(--hq-border); align-items: center; }
+        .chat-bubble { max-width: 75%; padding: 12px 16px; border-radius: 12px; font-size: 0.9rem; line-height: 1.5; position: relative; }
+        .msg-system { background: rgba(255, 255, 255, 0.03); color: var(--hq-text-muted); align-self: center; font-size: 0.75rem; border-radius: 6px; border: 1px solid var(--hq-border); padding: 6px 12px; font-family: monospace; }
+        .msg-staff { background: var(--hq-surface-light); border: 1px solid var(--hq-border); color: #cbd5e1; align-self: flex-start; border-top-left-radius: 2px; }
+        .msg-me { background: rgba(61, 208, 255, 0.08); border: 1px solid rgba(61, 208, 255, 0.2); color: #fff; align-self: flex-end; border-top-right-radius: 2px; }
+        .msg-meta { font-size: 0.7rem; color: #64748b; margin-bottom: 6px; display: block; }
+
         /* === CONFIGURATION INPUTS (SETARI UI) === */
         .form-group { margin-bottom: 20px; display: flex; flex-direction: column; gap: 8px; }
         .form-group label { font-size: 0.85rem; font-weight: 600; color: #cbd5e1; }
@@ -161,7 +171,7 @@
 
             <div style="display:flex; justify-content:flex-end; gap:12px; border-top:1px solid var(--hq-border); padding-top:24px;">
                 <button class="btn-secondary-sm" style="background:rgba(239,68,68,0.1); color:#ef4444; border-color:rgba(239,68,68,0.2);" id="md-btn-archive">Arhivează / Închide Dosar</button>
-                <button class="btn-secondary-sm" onclick="document.getElementById('ticketModal').style.display='none'">Înapoi la Panou</button>
+                <button class="btn-secondary-sm" onclick="document.getElementById('ticketModal').style.display='none'">Înapoila Panou</button>
             </div>
         </div>
     </div>
@@ -212,7 +222,7 @@
                         <div class="content-box">
                             <h3 style="margin-top:0; font-size:1.15rem; font-weight:700; display:flex; justify-content:space-between; align-items:center;">
                                 <span>Flux Aplicații Recente</span>
-                                <span style="font-size:0.75rem; color:#64748b; cursor:pointer;" onclick="document.querySelector('[onclick*=\'tichete\']').click()">Gestionează tot ➔</span>
+                                <span style="font-size:0.75rem; color:#64748b; cursor:pointer;" onclick="document.querySelector('[onclick*=\'tichete\']').click()">Gestionează tout ➔</span>
                             </h3>
                             <div id="home-preview-tickets" class="ticket-list"></div>
                         </div>
@@ -253,11 +263,20 @@
                 </div>
             </section>
 
-            <!-- TAB 3: MESAGERIE -->
+            <!-- TAB 3: MESAGERIE ENGINE OPERAȚIONAL -->
             <section id="sec-mesagerie" class="dashboard-section">
                 <div class="content-box">
+                    <h3 style="margin-top:0; margin-bottom:20px; font-size:1.3rem; display:flex; justify-content:space-between; align-items:center;">
+                        <span>💬 Canal Intern Administrație (Live Network)</span>
+                        <span style="font-size:0.8rem; color:var(--accent-staff); font-family:monospace;">● SECURE LINK</span>
+                    </h3>
                     <div class="chat-container">
                         <div id="chat-wrapper" class="chat-messages"></div>
+                        <div class="chat-input-row">
+                            <input type="text" id="chat-user-name" class="form-control" style="max-width: 160px; border-color: rgba(255,255,255,0.1);" placeholder="Indicativ..." value="Operator Solar">
+                            <input type="text" id="chat-input-text" class="form-control" placeholder="Scrie un mesaj intern..." onkeydown="if(event.key === 'Enter') sendChatMessage()">
+                            <button class="btn-secondary-sm" style="background:var(--accent-staff); color:var(--hq-bg); font-weight:800; border:none; height:42px; padding:0 24px;" onclick="sendChatMessage()">Trimite</button>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -290,24 +309,24 @@
                 </div>
             </section>
 
-            <!-- TAB 6: SETARI (NEW ADDITION) -->
+            <!-- TAB 6: SETARI SYSTEM -->
             <section id="sec-setari" class="dashboard-section">
                 <div class="content-box" style="margin-bottom: 24px;">
                     <h3 style="margin-top:0; font-size:1.3rem; color:var(--accent-staff);">Ajustare Interfață Grafică & Fundal</h3>
                     
                     <div class="form-group">
-                        <label>URL Imagine Fundal (De preferat link direct .jpg / .png):</label>
-                        <input type="text" id="set-bg-url" class="form-control" placeholder="Ex: https://images.unsplash.com/photo-1542751371-adc38448a05e" oninput="applySystemSettings()">
+                        <label>URL Imagine Fundal (Link direct spre .jpg sau .png):</label>
+                        <input type="text" id="set-bg-url" class="form-control" placeholder="Ex: https://images.unsplash.com/photo-1542751371-adc38448a05e">
                     </div>
 
                     <div class="flex-settings-row">
                         <div class="form-group">
-                            <label>Opacitate Wallpaper (Masca de întunecare):</label>
-                            <input type="range" id="set-bg-opacity" min="0" max="1" step="0.05" value="0.4" style="width:100%;" oninput="applySystemSettings()">
+                            <label>Opacitate Wallpaper (Filtru întunecare):</label>
+                            <input type="range" id="set-bg-opacity" min="0" max="1" step="0.05" value="0.4" style="width:100%;">
                         </div>
                         <div class="form-group">
-                            <label>Efect Blur Fundal (Încețoșare pixel):</label>
-                            <input type="range" id="set-bg-blur" min="0" max="20" step="1" value="0" style="width:100%;" oninput="applySystemSettings()">
+                            <label>Efect Blur Fundal (Încețoșare margini):</label>
+                            <input type="range" id="set-bg-blur" min="0" max="20" step="1" value="0" style="width:100%;">
                         </div>
                     </div>
                 </div>
@@ -316,22 +335,28 @@
                     <h3 style="margin-top:0; font-size:1.3rem; color:var(--accent-mc);">Conexiuni Date Externe</h3>
                     
                     <div class="form-group">
-                        <label>IP Server Minecraft de monitorizat:</label>
-                        <input type="text" id="set-mc-ip" class="form-control" placeholder="mc.hypixel.net" onchange="fetchMinecraftStatus(); applySystemSettings();">
+                        <label>IP Server Minecraft de monitorizat (Java Edition):</label>
+                        <input type="text" id="set-mc-ip" class="form-control" placeholder="Ex: mc.hypixel.net sau play.nume.ro">
                     </div>
 
                     <div class="form-group" style="flex-direction:row; align-items:center; gap:12px; margin-top:10px;">
-                        <input type="checkbox" id="set-audio-alert" style="width:18px; height:18px; cursor:pointer;" onchange="applySystemSettings()">
-                        <label for="set-audio-alert" style="cursor:pointer; margin:0;">Activează Alertă Sonoră (Beep Sonar) la primirea unui tichet nou</label>
+                        <input type="checkbox" id="set-audio-alert" style="width:18px; height:18px; cursor:pointer;">
+                        <label for="set-audio-alert" style="cursor:pointer; margin:0;">Activează Alertă Sonoră (Beep Sonar) la primirea unui tichet sau mesaj nou</label>
                     </div>
+                </div>
+
+                <div style="display:flex; justify-content:flex-end; align-items:center; gap:16px; margin-bottom:32px; background:rgba(11,13,23,0.6); padding:16px 24px; border-radius:14px; border:1px solid var(--hq-border);">
+                    <span id="save-success-msg" style="color:var(--accent-mc); font-size:0.9rem; font-weight:700; display:none; animation:fadeUp 0.2s ease;">✓ Setări salvate cu succes! Status actualizat.</span>
+                    <button class="btn-secondary-sm" style="background:var(--accent-staff); color:var(--hq-bg); font-weight:800; border:none; padding:12px 24px; font-size:0.9rem;" onclick="applySystemSettings()">💾 Salvează Configurația</button>
                 </div>
 
                 <div class="content-box" style="border-color: rgba(255,85,85,0.2) !important;">
                     <h3 style="margin-top:0; font-size:1.3rem; color:var(--error);">Zona de Resetare & Mentenanță</h3>
-                    <p style="font-size:0.85rem; color:#64748b; margin-top:0;">Atenție! Aceste acțiuni șterg direct datele stocate local în browser.</p>
+                    <p style="font-size:0.85rem; color:#64748b; margin-top:0;">Atenție! Aceste acțiuni curăță direct memoria temporară din acest browser.</p>
                     <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:15px;">
                         <button class="btn-secondary-sm" style="color:var(--error); border-color:var(--error);" onclick="purgeDatabase('tickets')">Șterge Tichete Active</button>
                         <button class="btn-secondary-sm" onclick="purgeDatabase('notes')">Resetează Notițele</button>
+                        <button class="btn-secondary-sm" onclick="purgeDatabase('chat')">Curăță Istoric Chat</button>
                         <button class="btn-secondary-sm" style="background:#ef4444; color:#fff;" onclick="purgeDatabase('all')">Șterge Toate Setările + Cache</button>
                     </div>
                 </div>
@@ -342,9 +367,12 @@
     <script>
         const solarChannel = new BroadcastChannel('solar_live_network');
 
-        // Baze de date
+        // Baze de date interne conectate la LocalStorage
         let activeTickets = JSON.parse(localStorage.getItem('solar_tickets_db')) || [];
         let archivedTickets = JSON.parse(localStorage.getItem('solar_archive_db')) || [];
+        let chatMessages = JSON.parse(localStorage.getItem('solar_chat_db')) || [
+            { id: 1, sender: "Core Node", text: "Canal de comunicație live securizat și activat.", time: "System", type: "system" }
+        ];
         let systemConfig = JSON.parse(localStorage.getItem('solar_config_db')) || {
             bgUrl: "",
             bgOpacity: "0.4",
@@ -364,7 +392,9 @@
             element.classList.add('active');
             document.getElementById('section-title').innerText = element.innerText.substring(3);
             document.getElementById(`sec-${target}`).classList.add('active-section');
+            
             if(target === 'statistici') renderCharts();
+            if(target === 'mesagerie') renderChat();
         }
 
         function pushLog(author, message, isSuccess = false) {
@@ -380,7 +410,6 @@
         setInterval(() => { document.getElementById('digital-clock').innerText = new Date().toLocaleTimeString(); }, 1000);
         function saveNotepad() { localStorage.setItem('solar_notepad_content', document.getElementById('staff-notepad').value); }
 
-        // === INITIALIZARE SI SALVARE SETARI DIN UI ===
         function loadSettingsIntoInputs() {
             document.getElementById('set-bg-url').value = systemConfig.bgUrl || "";
             document.getElementById('set-bg-opacity').value = systemConfig.bgOpacity || "0.4";
@@ -391,18 +420,25 @@
         }
 
         function applySystemSettings() {
-            systemConfig.bgUrl = document.getElementById('set-bg-url').value;
+            systemConfig.bgUrl = document.getElementById('set-bg-url').value.trim();
             systemConfig.bgOpacity = document.getElementById('set-bg-opacity').value;
             systemConfig.bgBlur = document.getElementById('set-bg-blur').value;
-            systemConfig.mcIp = document.getElementById('set-mc-ip').value || "mc.hypixel.net";
+            systemConfig.mcIp = document.getElementById('set-mc-ip').value.trim() || "mc.hypixel.net";
             systemConfig.audioAlert = document.getElementById('set-audio-alert').checked;
 
             localStorage.setItem('solar_config_db', JSON.stringify(systemConfig));
             executeVisualSettings();
+            fetchMinecraftStatus();
+
+            const successMsg = document.getElementById('save-success-msg');
+            successMsg.style.display = 'inline';
+            setTimeout(() => { successMsg.style.display = 'none'; }, 3500);
+
+            pushLog("Sistem Control", "Modificările panoului au fost înregistrate.", true);
+            solarChannel.postMessage({ type: 'SYNC_ALL' });
         }
 
         function executeVisualSettings() {
-            // Aplicare Wallpaper imagine
             const bgLayer = document.getElementById('dynamic-bg-layer');
             if(systemConfig.bgUrl) {
                 bgLayer.style.backgroundImage = `url('${systemConfig.bgUrl}')`;
@@ -410,13 +446,10 @@
             } else {
                 bgLayer.style.backgroundImage = "none";
             }
-            
-            // Aplicare masca de intunecare (opacitate)
             const overlayLayer = document.getElementById('dynamic-overlay-layer');
             overlayLayer.style.backgroundColor = `rgba(5, 6, 10, ${systemConfig.bgOpacity})`;
         }
 
-        // Alerta sonora virtuala (fara fisiere audio externe necesare)
         function triggerBeepNotification() {
             if(!systemConfig.audioAlert) return;
             try {
@@ -426,23 +459,29 @@
                 oscillator.connect(gainNode);
                 gainNode.connect(audioCtx.destination);
                 oscillator.type = 'sine';
-                oscillator.frequency.setValueAtTime(587.33, audioCtx.currentTime); // Nota D5 (efect sonar)
+                oscillator.frequency.setValueAtTime(587.33, audioCtx.currentTime); 
                 gainNode.gain.setValueAtTime(0.08, audioCtx.currentTime);
                 oscillator.start();
                 oscillator.stop(audioCtx.currentTime + 0.15);
             } catch(e){}
         }
 
-        // === CONECTARE LIVE MINECRAFT SERVER ===
+        // === MINECRAFT ENGINE (OPTIMIZAT) ===
         async function fetchMinecraftStatus() {
             const badge = document.getElementById('mc-status-badge');
             const strCount = document.getElementById('mc-player-string');
             const homeMcCount = document.getElementById('home-mc-count');
             const listContainer = document.getElementById('mc-player-list');
-            const targetIp = systemConfig.mcIp || "mc.hypixel.net";
+            const targetIp = (systemConfig.mcIp || "mc.hypixel.net").trim();
+
+            if (!targetIp) {
+                badge.innerHTML = `<span style="color:var(--error);">● FĂRĂ IP</span>`;
+                return;
+            }
 
             try {
-                const res = await fetch(`https://api.mcsrvstat.us/2/${targetIp}`);
+                const res = await fetch(`https://api.mcstatus.io/v2/status/java/${targetIp}`);
+                if (!res.ok) throw new Error("API_Error");
                 const data = await res.json();
 
                 if(data.online) {
@@ -453,24 +492,71 @@
                     homeMcCount.innerText = `${currentPlayers} / ${maxPlayers}`;
 
                     if(data.players.list && data.players.list.length > 0) {
-                        listContainer.innerHTML = data.players.list.map(p => `
-                            <span class="badge-tag" style="background:rgba(85,255,85,0.06); color:#fff; border-color:rgba(85,255,85,0.15); font-size:0.7rem;">👤 ${p}</span>
-                        `).join('');
+                        listContainer.innerHTML = data.players.list.map(p => {
+                            const name = typeof p === 'object' ? (p.name_clean || p.name || "Jucător") : p;
+                            return `<span class="badge-tag" style="background:rgba(85,255,85,0.06); color:#fff; border-color:rgba(85,255,85,0.15); font-size:0.7rem;">👤 ${name}</span>`;
+                        }).join('');
                     } else {
-                        listContainer.innerHTML = `<span style="color:#64748b; font-size:0.8rem;">Lista ascunsă sau goală</span>`;
+                        listContainer.innerHTML = `<span style="color:#64748b; font-size:0.8rem;">Fără jucători vizibili public</span>`;
                     }
                 } else {
                     badge.innerHTML = `<span style="color:var(--error);">● OFFLINE</span>`;
                     strCount.innerText = "0 / 0"; homeMcCount.innerText = "0 / 0";
-                    listContainer.innerHTML = `<span style="color:var(--error); font-size:0.8rem;">Server indisponibil.</span>`;
+                    listContainer.innerHTML = `<span style="color:var(--error); font-size:0.8rem;">Server închis sau IP greșit.</span>`;
                 }
             } catch (err) {
                 badge.innerHTML = `<span style="color:var(--error);">● TIMEOUT</span>`;
+                strCount.innerText = "Error"; homeMcCount.innerText = "Error";
             }
         }
         setInterval(fetchMinecraftStatus, 45000);
 
-        // === RENDER GLOBAL MODULES ===
+        // === LIVE CHAT MESSAGING ENGINE ===
+        function renderChat() {
+            const wrapper = document.getElementById('chat-wrapper');
+            if(!wrapper) return;
+
+            const myName = document.getElementById('chat-user-name').value.trim() || "Operator";
+
+            wrapper.innerHTML = chatMessages.map(m => {
+                if(m.type === 'system') return `<div class="chat-bubble msg-system">${m.text}</div>`;
+                
+                const isMe = m.sender === myName;
+                return `
+                    <div class="chat-bubble ${isMe ? 'msg-me' : 'msg-staff'}">
+                        <span class="msg-meta"><strong>${m.sender}</strong> • ${m.time}</span>
+                        <div>${m.text}</div>
+                    </div>
+                `;
+            }).join('');
+            wrapper.scrollTop = wrapper.scrollHeight;
+        }
+
+        function sendChatMessage() {
+            const textInput = document.getElementById('chat-input-text');
+            const nameInput = document.getElementById('chat-user-name');
+            if(!textInput || !textInput.value.trim()) return;
+
+            const name = nameInput.value.trim() || "Operator";
+            const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+            const msgObj = {
+                id: Date.now(),
+                sender: name,
+                text: textInput.value.trim(),
+                time: time,
+                type: 'user'
+            };
+
+            chatMessages.push(msgObj);
+            localStorage.setItem('solar_chat_db', JSON.stringify(chatMessages));
+            textInput.value = "";
+            
+            renderChat();
+            solarChannel.postMessage({ type: 'NEW_CHAT_MESSAGE', message: msgObj });
+        }
+
+        // === RENDERING COMPONENTE GENERALE ===
         function renderAll() {
             document.getElementById('home-high-count').innerText = activeTickets.filter(t => t.prioritate === 'high').length;
             document.getElementById('home-total-count').innerText = activeTickets.length;
@@ -570,22 +656,32 @@
         function clearAllArchive() { if(confirm("Ștergi definitiv registrele din arhivă?")) { archivedTickets = []; localStorage.setItem('solar_archive_db', JSON.stringify(archivedTickets)); renderAll(); } }
 
         function purgeDatabase(mode) {
-            if(!confirm("Ești sigur că vrei să execuți această acțiune de ștergere?")) return;
+            if(!confirm("Ești sigur că vrei să execuți această acțiune?")) return;
             if(mode === 'tickets' || mode === 'all') { activeTickets = []; localStorage.removeItem('solar_tickets_db'); }
             if(mode === 'notes' || mode === 'all') { document.getElementById('staff-notepad').value = ""; localStorage.removeItem('solar_notepad_content'); }
+            if(mode === 'chat' || mode === 'all') { chatMessages = []; localStorage.removeItem('solar_chat_db'); renderChat(); }
             if(mode === 'all') { localStorage.clear(); location.reload(); return; }
             renderAll();
-            pushLog("Sistem", `Curățare baza de date efectuată pentru sectorul: ${mode}`);
+            pushLog("Sistem", `Curățare bază de date executată: ${mode}`);
         }
 
+        // === LIVE SYNC RECEPTIE INTER-TAB ===
         solarChannel.onmessage = (e) => {
             activeTickets = JSON.parse(localStorage.getItem('solar_tickets_db')) || [];
             archivedTickets = JSON.parse(localStorage.getItem('solar_archive_db')) || [];
-            if(e.data && e.data.type === 'NEW_APPLICATION') {
-                pushLog("Inbound Core", `Formular nou recepționat: ${e.data.source}`, true);
-                triggerBeepNotification();
+            chatMessages = JSON.parse(localStorage.getItem('solar_chat_db')) || [];
+            
+            if(e.data) {
+                if(e.data.type === 'NEW_APPLICATION') {
+                    pushLog("Inbound Core", `Formular nou recepționat: ${e.data.source}`, true);
+                    triggerBeepNotification();
+                } else if(e.data.type === 'NEW_CHAT_MESSAGE') {
+                    pushLog("Mesagerie Live", `Mesaj nou de la operatorul [ ${e.data.message.sender} ]`);
+                    triggerBeepNotification();
+                }
             }
             renderAll();
+            renderChat();
         };
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -593,8 +689,9 @@
             document.getElementById('staff-notepad').value = localStorage.getItem('solar_notepad_content') || '';
             loadSettingsIntoInputs();
             renderAll();
+            renderChat();
             fetchMinecraftStatus();
-            pushLog("Sistem Solar", "Sincronizare activă. Apasă roata zimțată de jos pentru a adăuga fundalul dorit.");
+            pushLog("Sistem Solar", "Matricea Solar Core a fost inițializată. Mesageria și Statusul MC sunt online.");
         });
     </script>
 </body>
